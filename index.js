@@ -60,11 +60,12 @@ remove(commentLocation)
 let inputEl2 = document.getElementById("input2")
 
 buttonEl.addEventListener("click", function(){
-    let commentData = {
+   /* let commentData = {
         name :  inputEl2.value,
         comment : inputEl.value
-    }
-    push(commentInDb,commentData)
+    } */
+
+    push(commentInDb,inputEl.value)
     inputEl.value = ""
     inputEl2.value = ""
 
