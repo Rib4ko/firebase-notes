@@ -61,7 +61,7 @@ let inputEl2 = document.getElementById("input2")
 
 buttonEl.addEventListener("click", function(){
    /* let commentData = {
-        name :  inputEl2.value,
+        name :  inputEl2.value,http://127.0.0.1:3000/my%20prjct%20-%20Copie/flaxery.png.png
         comment : inputEl.value
     } 
     
