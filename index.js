@@ -63,17 +63,19 @@ buttonEl.addEventListener("click", function(){
    /* let commentData = {
         name :  inputEl2.value,
         comment : inputEl.value
-    } */
+    } 
     
     set(ref(database,'comments/amine'),{
         username : inputEl2.value,
         email : inputEl.value
     })
-   
+   */
 
     push(commentInDb,inputEl.value)
-    inputEl.value = "2"
-    inputEl2.value = "1"
+    inputEl.value = ""
+    inputEl2.value = ""
+    inputEl2.placeholder = "sent"
+    inputEl.placeholder= "sent"
 
    })
    
