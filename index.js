@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue, remove, set} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://plqyground-7ae02-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -60,24 +60,44 @@ remove(commentLocation)
 let inputEl2 = document.getElementById("input2")
 
 buttonEl.addEventListener("click", function(){
-   /* let commentData = {
-        name :  inputEl2.value,http://127.0.0.1:3000/my%20prjct%20-%20Copie/flaxery.png.png
-        comment : inputEl.value
-    } 
-    
-    set(ref(database,'comments/amine'),{
-        username : inputEl2.value,
-        email : inputEl.value
-    })
-   */
+  
 
-    push(commentInDb,inputEl.value)
+    set(ref(database, 'comments/' + inputEl2.value), {
+        msg: inputEl.value,
+        name: inputEl2.value
+      });
+    
+  //  push(commentInDb,inputEl.value)
     inputEl.value = ""
     inputEl2.value = ""
-    inputEl2.placeholder = "sent"
-    inputEl.placeholder= "sent"
+   
 
    })
+
+   // Function to create and append a new list item
+function appendComment(name, msg) {
+    const li = document.createElement("li")
+  
+    li.innerHTML = `${msg}<br><span id="user"> ${name}</span>` 
+    ulEl.appendChild(li)
+
+    li.addEventListener("dblclick",function(){
+        remove(ref(database, `comments/${name}`))
+    })
+}
+
+// Reading the data from Firebase
+onValue(commentInDb, function(snapshot) {
+    ulEl.innerHTML = ""  // Clear the list before appending new data
+    const data = snapshot.val()
+    for (let key in data) {
+        if (data.hasOwnProperty(key)) {
+            appendComment(data[key].name, data[key].msg)
+        }
+    }
+})
+/*
+
    
 onValue(commentInDb, function(snapshot) {
     let currentItemValue
@@ -91,7 +111,8 @@ onValue(commentInDb, function(snapshot) {
             currentItemValue = currentItem[1]
            
             appendItemToList(currentItem)
-           
+  
+             inputEl.placeholder = itemsArray        
         } 
        
        if(document.visibilityState === "hidden"){
